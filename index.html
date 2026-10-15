@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Importador Backup</title>
+  <meta name="description" content="Importador Backup: cópias de segurança criptografadas dos dados do Importador no Google Drive, usando Restic e Rclone.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="./">Importador Backup</a>
+      <nav class="main" aria-label="Navegação principal">
+        <a href="./" aria-current="page">Início</a>
+        <a href="privacy.html">Política de Privacidade</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <h1>Importador Backup</h1>
+      <p class="lead">Cópias de segurança criptografadas dos dados do Importador, guardadas na sua própria conta do Google Drive.</p>
+      <p>O Importador é um software de importação fiscal. O Importador Backup é o módulo que prepara e envia backups desses dados para um armazenamento externo, de forma que somente quem possui a senha do backup consiga lê-los.</p>
+
+      <div class="note">
+        <p><strong>Em desenvolvimento.</strong> O Importador Backup está sendo preparado. Esta página descreve o funcionamento previsto; recursos ainda não disponíveis estão indicados como planejados na <a href="privacy.html">Política de Privacidade</a>.</p>
+      </div>
+
+      <h2>Componentes</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Restic</h3>
+          <p>Ferramenta de backup de código aberto. Criptografa e deduplica os dados no próprio computador, antes de qualquer envio.</p>
+        </div>
+        <div class="card">
+          <h3>Rclone</h3>
+          <p>Ferramenta de código aberto que conecta o Restic ao Google Drive, usando a autorização OAuth concedida por você.</p>
+        </div>
+        <div class="card">
+          <h3>Google Drive</h3>
+          <p>Destino dos backups, na conta Google escolhida por você. O Drive recebe apenas dados já criptografados.</p>
+        </div>
+      </div>
+
+      <h2>Como funciona</h2>
+      <ol class="flow">
+        <li>Você autoriza o acesso do Importador Backup à sua conta do Google Drive pela tela de consentimento do Google.</li>
+        <li>O Restic lê os dados do Importador no seu computador, divide-os em blocos e os criptografa com uma senha definida por você.</li>
+        <li>O Rclone envia os blocos criptografados para uma pasta no seu Google Drive.</li>
+        <li>Para restaurar, o Restic baixa os blocos pelo Rclone e os descriptografa localmente com a mesma senha.</li>
+      </ol>
+
+      <h2>Por que o Google Drive é usado</h2>
+      <p>O Google Drive serve apenas como local de armazenamento. O acesso autorizado é usado somente para gravar, listar, baixar e remover os arquivos do próprio backup. Detalhes sobre permissões, armazenamento, retenção e como revogar o acesso estão na Política de Privacidade.</p>
+
+      <a class="cta" href="privacy.html">Ler a Política de Privacidade</a>
+    </div>
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <span>Importador Backup</span>
+      <span><a href="./">Início</a> · <a href="privacy.html">Política de Privacidade</a></span>
+    </div>
+  </footer>
+</body>
+</html>
