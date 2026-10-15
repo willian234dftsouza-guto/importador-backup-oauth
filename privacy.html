@@ -23,53 +23,66 @@
       <h1>Política de Privacidade</h1>
       <p class="meta">Importador Backup · Última atualização: 15 de outubro de 2026</p>
 
-      <p>Esta política explica como o Importador Backup, módulo de cópias de segurança do Importador, utiliza o acesso à sua conta Google e trata os dados envolvidos no backup.</p>
+      <p>Esta política explica como o Importador Backup, módulo de cópias de segurança do Importador, pretende utilizar o acesso à sua conta Google e tratar os dados envolvidos no backup.</p>
 
       <div class="note">
-        <p>O Importador Backup está em desenvolvimento. Cada prática abaixo está marcada como <span class="badge ok">Implementado</span> quando decorre do funcionamento atual das ferramentas utilizadas, ou como <span class="badge plan">Planejado</span> quando ainda será disponibilizada.</p>
+        <p><strong>Estágio atual:</strong> o Restic e o Rclone já estão instalados, mas a conexão OAuth com o Google Drive, os backups criptografados, a automação e a política de retenção ainda não foram configurados nem validados no Importador Backup. Por isso, nenhuma das práticas abaixo está em operação no Importador Backup.</p>
       </div>
 
+      <p>Cada item está identificado assim:</p>
+      <ul>
+        <li><span class="badge" style="background: var(--accent-soft); color: var(--accent);">Recurso da ferramenta</span> capacidade própria do Restic, do Rclone ou do Google, existente independentemente do Importador Backup. Ainda não foi configurada nem validada no Importador Backup.</li>
+        <li><span class="badge plan">Planejado</span> prática que o Importador Backup pretende adotar quando for configurado. Ainda não está em operação.</li>
+      </ul>
+
       <h2>1. Dados acessados</h2>
-      <p>O Importador Backup não coleta dados para si. Ele copia os dados do Importador existentes no seu computador para a sua própria conta do Google Drive. O desenvolvedor não opera servidores que recebam esses dados nem tem acesso à sua conta Google ou à senha do backup.</p>
+      <p>Como a conexão OAuth ainda não foi configurada, o Importador Backup atualmente não acessa sua conta Google nem envia dados ao Google Drive.</p>
+      <ul>
+        <li><span class="badge plan">Planejado</span> Copiar os dados do Importador existentes no seu computador para a sua própria conta do Google Drive, sem passar por servidores do desenvolvedor.</li>
+        <li><span class="badge plan">Planejado</span> Não coletar dados dos backups para o desenvolvedor.</li>
+      </ul>
 
       <h2>2. Permissões do Google</h2>
-      <p>A conexão com o Google Drive é feita pelo Rclone, usando OAuth 2.0. Você vê na tela de consentimento do Google quais permissões estão sendo solicitadas e decide se as concede.</p>
       <ul>
-        <li><span class="badge ok">Implementado</span> O acesso ao Google Drive é usado somente para gravar, listar, baixar e remover os arquivos do próprio backup.</li>
-        <li><span class="badge ok">Implementado</span> Os dados obtidos pelas APIs do Google não são vendidos, compartilhados com terceiros nem usados para publicidade ou para treinar modelos de inteligência artificial.</li>
-        <li><span class="badge plan">Planejado</span> Solicitar o escopo mais restrito compatível com o backup, preferencialmente limitado aos arquivos criados pelo próprio aplicativo (<code>https://www.googleapis.com/auth/drive.file</code>).</li>
+        <li><span class="badge" style="background: var(--accent-soft); color: var(--accent);">Recurso da ferramenta</span> O Rclone se conecta ao Google Drive usando OAuth 2.0. Nesse processo, o Google exibe uma tela de consentimento com as permissões solicitadas, e você decide se as concede.</li>
+        <li><span class="badge plan">Planejado</span> Solicitar o escopo mais restrito compatível com o backup, preferencialmente limitado aos arquivos criados pelo próprio aplicativo (<code>https://www.googleapis.com/auth/drive.file</code>). O escopo definitivo será informado nesta política quando a conexão for configurada.</li>
+        <li><span class="badge plan">Planejado</span> Usar o acesso ao Google Drive somente para gravar, listar, baixar e remover os arquivos do próprio backup.</li>
+        <li><span class="badge plan">Planejado</span> Não vender nem compartilhar com terceiros os dados obtidos pelas APIs do Google, e não usá-los para publicidade ou para treinar modelos de inteligência artificial.</li>
+        <li><span class="badge plan">Planejado</span> Seguir a <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Política de Dados do Usuário dos Serviços de API do Google</a>, incluindo os requisitos de uso limitado.</li>
       </ul>
-      <p>O uso de informações recebidas das APIs do Google seguirá a <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Política de Dados do Usuário dos Serviços de API do Google</a>, incluindo os requisitos de uso limitado.</p>
 
       <h2>3. Criptografia</h2>
       <ul>
-        <li><span class="badge ok">Implementado</span> O Restic criptografa os dados no seu computador antes do envio, usando AES-256 com autenticação Poly1305. O Google Drive recebe apenas dados criptografados.</li>
-        <li><span class="badge ok">Implementado</span> A senha do repositório de backup é definida por você e não é enviada ao Google nem ao desenvolvedor. Sem essa senha não é possível ler nem restaurar o backup, inclusive pelo desenvolvedor.</li>
-        <li><span class="badge ok">Implementado</span> A comunicação com o Google Drive ocorre por HTTPS.</li>
+        <li><span class="badge" style="background: var(--accent-soft); color: var(--accent);">Recurso da ferramenta</span> O Restic criptografa os dados no computador antes do envio, usando AES-256 com autenticação Poly1305. O destino do backup recebe apenas dados criptografados.</li>
+        <li><span class="badge" style="background: var(--accent-soft); color: var(--accent);">Recurso da ferramenta</span> Os dados de um repositório do Restic só podem ser descriptografados com a senha desse repositório.</li>
+        <li><span class="badge" style="background: var(--accent-soft); color: var(--accent);">Recurso da ferramenta</span> O Rclone se comunica com a API do Google Drive por HTTPS.</li>
+        <li><span class="badge plan">Planejado</span> Criar o repositório de backup criptografado com uma senha definida por você, que não seja enviada ao Google nem ao desenvolvedor.</li>
       </ul>
 
       <h2>4. Armazenamento</h2>
       <ul>
-        <li><span class="badge ok">Implementado</span> Os backups ficam na conta do Google Drive que você autorizou, sujeitos à cota e aos termos do Google.</li>
-        <li><span class="badge ok">Implementado</span> O token de acesso OAuth fica salvo localmente no arquivo de configuração do Rclone, no seu computador. Ele não é enviado ao desenvolvedor.</li>
+        <li><span class="badge" style="background: var(--accent-soft); color: var(--accent);">Recurso da ferramenta</span> O Rclone guarda o token de acesso OAuth no seu arquivo de configuração local. Por padrão, esse arquivo não é protegido por senha.</li>
+        <li><span class="badge plan">Planejado</span> Guardar os backups na conta do Google Drive que você autorizar, sujeitos à cota e aos termos do Google.</li>
+        <li><span class="badge plan">Planejado</span> Manter o token de acesso somente no seu computador, sem enviá-lo ao desenvolvedor.</li>
         <li><span class="badge plan">Planejado</span> Proteger a configuração local do Rclone com senha e armazenar a senha do backup de forma protegida no sistema operacional.</li>
       </ul>
 
       <h2>5. Retenção</h2>
       <ul>
-        <li><span class="badge ok">Implementado</span> Os backups permanecem no seu Google Drive até que você os remova. Você pode apagá-los a qualquer momento pelo próprio Google Drive.</li>
-        <li><span class="badge plan">Planejado</span> Política de retenção configurável no Importador, removendo automaticamente cópias antigas (por exemplo, mantendo apenas as últimas diárias, semanais e mensais).</li>
+        <li><span class="badge" style="background: var(--accent-soft); color: var(--accent);">Recurso da ferramenta</span> O Restic permite definir regras de retenção que removem cópias antigas, por exemplo mantendo apenas as últimas cópias diárias, semanais e mensais.</li>
+        <li><span class="badge plan">Planejado</span> Configurar no Importador uma política de retenção ajustável, com remoção automática de cópias antigas.</li>
+        <li><span class="badge plan">Planejado</span> Manter os backups no seu Google Drive até que sejam removidos por essa política ou por você. Você poderá apagá-los a qualquer momento pelo próprio Google Drive.</li>
       </ul>
 
       <h2>6. Revogação de acesso</h2>
       <ul>
-        <li><span class="badge ok">Implementado</span> Você pode revogar o acesso a qualquer momento em <a href="https://myaccount.google.com/permissions" rel="noopener">myaccount.google.com/permissions</a>. Após a revogação, o Importador Backup deixa de conseguir acessar o Google Drive.</li>
-        <li><span class="badge ok">Implementado</span> Revogar o acesso não apaga os backups já enviados. Para removê-los, exclua a pasta de backup no Google Drive.</li>
+        <li><span class="badge" style="background: var(--accent-soft); color: var(--accent);">Recurso do Google</span> Qualquer acesso concedido a um aplicativo pode ser revogado a qualquer momento em <a href="https://myaccount.google.com/permissions" rel="noopener">myaccount.google.com/permissions</a>. Depois disso, o aplicativo deixa de conseguir acessar o Google Drive.</li>
+        <li><span class="badge" style="background: var(--accent-soft); color: var(--accent);">Recurso do Google</span> Revogar o acesso não apaga os arquivos já gravados no Google Drive. Para removê-los, é preciso excluí-los no próprio Google Drive.</li>
         <li><span class="badge plan">Planejado</span> Opção “Desconectar Google Drive” no Importador, que revoga o token e o remove da configuração local.</li>
       </ul>
 
       <h2>7. Alterações nesta política</h2>
-      <p>Esta política poderá ser atualizada à medida que os recursos planejados forem implementados. A data da última atualização aparece no início da página.</p>
+      <p>Esta política será atualizada à medida que os recursos planejados forem configurados e validados. A data da última atualização aparece no início da página.</p>
 
       <h2>8. Contato</h2>
       <p>Dúvidas sobre esta política podem ser enviadas pela página de <a href="https://github.com/willian234dftsouza-guto/importador-backup-oauth/issues" rel="noopener">issues do repositório</a>.</p>
